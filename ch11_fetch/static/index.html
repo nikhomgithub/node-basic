@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is Static</h1>
+    
+    <button onclick="funcA()">FuncA</button>
+
+    <form onsubmit="funcB(event)" >
+            <input type="submit" value="funcB Submit">
+    </form><br>
+
+    <button id="get-text">Get Text</button>
+    <br>
+    
+    <button id="get-json">Get Json</button>
+    <br>
+    <div id="output"></div>
+
+
+    <form id="myform">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="myname">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="myemail">
+        </div>
+        <input type="submit" value="Form Submit">
+    </form>
+
+
+
+    <script>
+        const funcA=()=>{
+            console.log("funcA")
+        }
+        
+        const funcB=(event)=>{
+            event.preventDefault();
+            console.log("funcB")
+        }
+        
+        const getText=()=>{
+            fetch('http://localhost:3000/text')
+             .then(res=>res.text())
+             .then(data=>{console.log(data)})
+        }
+        
+        document.getElementById('get-text').addEventListener('click',getText)
+
+        const getJson=()=>{
+            fetch('http://localhost:3000/json')
+            .then(res=>res.json())
+            .then(data=>{
+                let op='<h2>User</h2>'
+                data.forEach(user=>{
+                    op+=`<h4>${user.name}</h4>`
+                })
+                document.getElementById('output').innerHTML=op
+            })
+        }
+
+        document.getElementById('get-json').addEventListener('click',getJson)
+
+        
+      
+
+
+        const addPost=(event)=>{
+            event.preventDefault();
+            const myname=document.getElementById("myname").value;
+            const myemail=document.getElementById("myemail").value;
+
+            fetch('http://localhost:3000/',{
+                method:'POST',
+                headers:{
+                    'Accept':'application/json,text/plain,*/*',
+                    'Content-type':'application/json'
+                },
+                body:JSON.stringify({
+                    name:myname,
+                    email:myemail
+                })
+            })
+                .then(res=>res.json())
+                .then(data=>console.log(data))
+        }
+        
+        document.getElementById("myform").addEventListener('submit',addPost)
+       
+        
+
+
+    </script>
+</body>
+</html>

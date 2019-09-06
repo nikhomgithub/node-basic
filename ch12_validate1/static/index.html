@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Validation Backend</h1>
+    
+  
+    <form id="myform">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="myname">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="myemail">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="mypassword">
+        </div>
+        <input type="submit" value="Form Submit">
+    </form>
+
+
+
+    <script>
+           
+        const addPost=(event)=>{
+            event.preventDefault();
+            const myname=document.getElementById("myname").value;
+            const myemail=document.getElementById("myemail").value;
+            const mypassword=document.getElementById("mypassword").value;
+
+            fetch('http://localhost:3000/',{
+                method:'POST',
+                headers:{
+                    'Accept':'application/json,text/plain,*/*',
+                    'Content-type':'application/json'
+                },
+                body:JSON.stringify({
+                    name:myname,
+                    email:myemail,
+                    password:mypassword
+                })
+            })
+                .then(res=>res.json())
+                .then(data=>console.log(data))
+        }
+        
+        document.getElementById("myform").addEventListener('submit',addPost)
+    </script>
+</body>
+</html>
