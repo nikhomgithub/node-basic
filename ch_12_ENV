@@ -1,0 +1,42 @@
+node can access to global variable in linux
+
+=================
+app.js
+  console.log(process.env.NODE_ENV)      //access global variable in node file with prefix "process.env"
+=================  
+$NODE_ENV=test                         //define global variable in linux
+
+$node app.js                           //run node file to see that it can access NODE_ENV  
+//test 
+
+=================
+How to define global variable
+1. Bash script 
+$NODE_ENV=test port=3000
+
+2. package.json
+"scripts":{
+  "dev": "NODE_ENV=test port=3000 node app.js"
+}
+
+3. file .env
+.env
+  NODE_ENV=test 
+  port=3000
+
+app.js
+  const {NODE_ENV,port}=process.env       //distract method
+  console.log(NODE_EMV,port)
+
+"scripts":{
+  "dev": "eval $(cat .env) node app.js"
+}  
+  or  "dev": "export $(cat .env) node app.js"
+
+normally, we put .env in .gitignore
+.gitignore
+   node_modules
+   .env
+
+normally in hiroku or digitalOcean, it provide storage for global variable for you to use
+no one except you can access
