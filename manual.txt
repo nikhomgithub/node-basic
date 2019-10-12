@@ -1,0 +1,36 @@
+ch1_module
+   module.export => const,function,class
+
+ch2_event
+   new EventEmitter()
+   event.on('signal',(num1,num2)=>{}
+   event.emit('signal',1,2)
+
+ch3_readline
+   rl=readline.createInterface({ input:process.stdin, output:process.stdout })
+   rl.question('xxx',getAnswer=>{})
+   rl.close()
+   rl.setPrompt() => rl.prompt()
+   rl.on('line',getAnswer=>{})
+
+ch4_fs
+   fs.writeFile()
+   fs.rename()
+   fs.appendFile()
+   fs.readFile()
+   fs.unlink()
+   fs.mkdir()
+   fs.rmdir()
+   fs.readdir()
+
+ch5_stream
+   gzip = zlib.createGzip()
+   
+   readStream = fs.createReadStream()
+   writeStream = fs.createWriteStream()
+   readStream.on('data',(chunk)=>{ writeStream.write(chunk) })
+   or
+   readStream.pipe(writeStream)
+   readStream.pipe(gzip).pipe(writeStream)
+ch6_http
+  
