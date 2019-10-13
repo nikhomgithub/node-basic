@@ -32,5 +32,67 @@ ch5_stream
    or
    readStream.pipe(writeStream)
    readStream.pipe(gzip).pipe(writeStream)
+   
 ch6_http
-  
+ch7_static   
+   server = http.createServer((req,res)=>{ 
+        readStream=fs.createReadStream('./static/trex.png');
+        res.writeHead(200,{'Content-type':'image/png'});
+        readStream.pipe(res);
+    })
+    
+ch08_npm
+   "lodash" : "^4.17.11" //major.minor.patch     
+           "^4.17.11" //4.x.x 
+           "~4.17.11" //4.17.x  
+           " 4.17.11" //4.17.11
+ch09_express
+ch10_express static
+   app.use('/public/',express.static(path.join(__dirname,'static')));
+ch11_get,post
+
+ch12_validation1      
+   joi.validate(req.body,schema,(err,result)=>{ })
+   const schema = joi.object().keys({
+        name : joi.string().trim().required(),
+        email : joi.string().email().required(),
+        password : joi.string().trim().min(2).max(10).required()
+   })
+
+ch13_validation2 (nested schma)
+    const carSchema = joi.array().items(joi.string())
+
+    const bookSchema = joi.array().items(joi.object().keys({
+        title:joi.string().trim().required()
+    }))   
+
+    const schema = joi.object().keys({
+        cars:carSchema,
+        books:bookSchema
+    })
+
+Global variable
+   node can access to global variable in linux
+      app.js
+         console.log(process.env.NODE_ENV)       
+   definde global variable
+     1)bash
+     $NODE_ENV=test $port=3000
+     2)package.json
+     "scripts":{
+       "dev": "NODE_ENV=test port=3000 node app.js"
+     } 
+     3)file .env
+           NODE_ENV=test 
+            port=3000
+      normally, we put .env in .gitignore 
+         .gitignore
+            node_modules
+            .env
+
+
+
+
+
+
+
